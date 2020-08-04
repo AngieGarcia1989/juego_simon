@@ -107,7 +107,7 @@
       const naranja = document.getElementById('naranja')
       const verde = document.getElementById('verde')
       const btnEmpezar = document.getElementById('btnEmpezar')
-      const ULTIMO_NIVEL = 10 
+      const ULTIMO_NIVEL = 4
 
 
       class Juego {
@@ -212,11 +212,14 @@ iluminarSecuencia() {
 
 
       elegirColor(ev) {
+        const puntaje = this.subnivel + 1
         const nombreColor = ev.target.dataset.color 
         const numeroColor = this.transformarDeColorANumero(nombreColor)
         this.iluminarColor(nombreColor)
         if (numeroColor === this.secuencia[this.subnivel]) {
           this.subnivel++
+      
+          console.log (`tu puntaje es ${puntaje}`)
           if (this.subnivel === this.nivel){
             this.nivel++
             this.eliminarEventosclick()
