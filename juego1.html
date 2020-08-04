@@ -100,14 +100,16 @@
       <div id="verde" class="color verde right" data-color="verde"></div>
       <button id="btnEmpezar" class="btn-start" onclick="empezarJuego()">Adelante!! buena suerte :) !</button>
     </div>
+    <p id="puntaje">0</p>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
+      const puntaje = document.getElementById(`puntaje`)
       const celeste = document.getElementById('celeste')
       const violeta = document.getElementById('violeta')
       const naranja = document.getElementById('naranja')
       const verde = document.getElementById('verde')
       const btnEmpezar = document.getElementById('btnEmpezar')
-      const ULTIMO_NIVEL = 4
+      const ULTIMO_NIVEL = 3
 
 
       class Juego {
@@ -116,6 +118,7 @@
           this.inicializar()
           this.generarSecuencia()
           setTimeout (this.siguienteNivel, 500)
+         
           
         }
 
@@ -212,16 +215,17 @@ iluminarSecuencia() {
 
 
       elegirColor(ev) {
-        const puntaje = this.subnivel + 1
+       
         const nombreColor = ev.target.dataset.color 
         const numeroColor = this.transformarDeColorANumero(nombreColor)
         this.iluminarColor(nombreColor)
         if (numeroColor === this.secuencia[this.subnivel]) {
           this.subnivel++
       
-          console.log (`tu puntaje es ${puntaje}`)
+          
           if (this.subnivel === this.nivel){
-            this.nivel++
+            this.nivel++ 
+            puntaje.innerHTML = this.nivel -1
             this.eliminarEventosclick()
             if (this.nivel === (ULTIMO_NIVEL + 1)){
               this.ganoElJuego()
@@ -235,12 +239,12 @@ iluminarSecuencia() {
       }
 
       ganoElJuego() {
-        swal(`eyyy tuuu`,`GANASTE!!`,`success`)
+        swal(`eyyy tuuu`,`GANASTE!! puntaje 3`,`success`)
         .then (this.inicializar)
       }
 
       PerdioElJuego(){
-        swal(`eyyyy tuuu`,`Vuelve a intentarlo`,`error`)
+        swal(`eyyyy tuuu`,`Vuelve a intentarlo tu puntaje fue de ${this.nivel-1}`,`error`)
         .then(() => {
           this.eliminarEventosclick()
           this.inicializar()
